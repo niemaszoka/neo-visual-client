@@ -1,15 +1,13 @@
 import * as React from 'react';
 import './App.css';
-import {NeoMap} from './components';
+import { AppContent } from './components/app-content/app-content';
 
 class App extends React.Component {
   public render() {
     return (
       <div className='app'>
           <header className='app__header'>Neo visual!</header>
-        <div className='app__content'>
-          <NeoMap/>
-        </div>
+        <AppContent/>
       </div>
     );
   }

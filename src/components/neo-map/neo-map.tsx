@@ -1,12 +1,11 @@
 import * as React from 'react';
 import './neo-map.css';
-import { NasaApiService } from '../../services';
 
-export interface INeoMapState {
+export interface INeoMapProps {
 	neos: any[]
 }
 
-export class NeoMap extends React.Component <{}, INeoMapState> {
+export class NeoMap extends React.Component <INeoMapProps, {}> {
 
 	private MAP_SIZE = {
 		x: 400,
@@ -16,24 +15,6 @@ export class NeoMap extends React.Component <{}, INeoMapState> {
 		x: Math.floor(this.MAP_SIZE.x / 2),
 		y: Math.floor(this.MAP_SIZE.y / 2),
 	};
-
-	private START_DATE = '2018-07-10';
-	private STOP_DATE = '2018-07-11';
-
-	constructor(props: any) {
-		super(props);
-		this.state = {
-			neos: []
-		};
-	}
-
-	componentDidMount() {
-		NasaApiService.getNeosData(this.START_DATE, this.STOP_DATE).then((data) => {
-			this.setState({
-				neos: data[this.START_DATE]
-			});
-		});
-	}
 
 	getNeosCoordinates = (neos: any[]) => {
 		const data = [];
@@ -52,7 +33,7 @@ export class NeoMap extends React.Component <{}, INeoMapState> {
 	};
 
 	render() {
-		const neoElements = this.getNeosCoordinates(this.state.neos).map((coordinates, index) => {
+		const neoElements = this.getNeosCoordinates(this.props.neos).map((coordinates, index) => {
 			return <circle className='neo-map__neo' cx={coordinates.xi} cy={coordinates.yi} r={coordinates.radius} fill='orange' key={index}/>;
 		});
 
